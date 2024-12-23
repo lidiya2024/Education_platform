@@ -1,0 +1,20 @@
+<h2>Create a Course</h2>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Display the form fields -->
+    {{ form.as_p }}
+
+    <!-- Check if the user is an instructor -->
+    {% if is_instructor %}
+      <!-- Show the Create Course button if the user is an instructor -->
+      <button type="submit" class="btn btn-primary">Create Course</button>
+    {% else %}
+      <!-- If the user is not an instructor, show a message -->
+      <p>You must be an instructor to create a course.</p>
+    {% endif %}
+  </form>
+
+  <br>
+  <a href="{% url 'create_course' %}">Back to Course List</a>

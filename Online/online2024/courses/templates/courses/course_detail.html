@@ -1,0 +1,14 @@
+<h1>{{ course.title }}</h1>
+
+{% if course.image %}
+    <img src="{{ course.image.url }}" alt="{{ course.title }}" width="300" height="300">
+{% endif %}
+
+<p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
+<p><strong>Created At:</strong> {{ course.created_at }}</p>
+
+{% if is_enrolled %}
+    <p>You are enrolled in this course.</p>
+{% else %}
+<p><a href="{% url 'courses:enroll_in_course' course.id %}">Enroll</a> to this course.</p>
+{% endif %}

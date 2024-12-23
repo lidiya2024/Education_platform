@@ -1,0 +1,13 @@
+<h1>Your Progress (Student View)</h1>
+<h2>Courses</h2>
+<ul>
+    {% for cp in course_progress %}
+        <li>{{ cp.course.title }}: {{ cp.progress_percentage }}% completed</li>
+    {% endfor %}
+</ul>
+<h2>Quizzes</h2>
+<ul>
+    {% for qp in quiz_progress %}
+        <li>{{ qp.quiz.title }}: Score - {{ qp.score }}</li>
+    {% endfor %}
+</ul>

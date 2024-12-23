@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instructor Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ request.user.username }}</h1>
+    <h2>Your Courses</h2>
+    <ul>
+        {% for stat in course_stats %}
+            <li>
+                <strong>{{ stat.course.title }}</strong>
+                - Enrolled Students: {{ stat.enrolled_students }}
+                <a href="{% url 'courses:course_detail' stat.course.id %}">View Details</a>
+            </li>
+        {% empty %}
+            <p>You haven't created any courses yet.</p>
+        {% endfor %}
+    </ul>
+
+    <h2>Your Quizzes</h2>
+    <ul>
+        {% for quiz in quizzes %}
+            <li>
+                <strong>{{ quiz.title }}</strong> (Course: {{ quiz.course.title }})
+                <a href="{% url 'quizzes:quiz_detail' quiz.id %}">View Quiz</a>
+            </li>
+        {% empty %}
+            <p>You haven't created any quizzes yet.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

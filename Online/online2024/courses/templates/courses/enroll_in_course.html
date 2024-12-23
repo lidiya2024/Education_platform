@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enroll in Course</title>
+</head>
+<body>
+    <h1>Enroll in "{{ course.title }}"</h1>
+
+    {% if already_enrolled %}
+        <p>You are already enrolled in this course.</p>
+        <a href="{% url 'courses:course_detail' course.id %}">View Course Details</a>
+    {% else %}
+        <p>Are you sure you want to enroll in this course?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Yes, Enroll Me</button>
+        </form>
+        <a href="{% url 'courses:course_list' %}">Cancel</a>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ quiz.title }}</title>
+</head>
+<body>
+    <h1>{{ quiz.title }}</h1>
+    <ul>
+    <p><strong>Course:</strong> {{ quiz.course.title }}</p>
+    <p><strong>Total Questions:</strong> {{ quiz.questions.count }}</p>
+    <p><strong>Created At:</strong> {{ quiz.created_at }}</p>
+    <a href="{% url 'quizzes:take_quiz' quiz.id %}" class="btn btn-primary">Take Quiz</a>
+    </ul>
+</body>
+</html>
+
+

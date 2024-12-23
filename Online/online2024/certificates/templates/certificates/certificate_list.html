@@ -1,0 +1,10 @@
+<h1>All Certificates</h1>
+<ul>
+    {% for certificate in certificates %}
+        <li>
+            <a href="{% url 'certificates:certificate_detail' certificate.pk %}">
+                {{ certificate.certificate_number }} - {{ certificate.student.username }} - {{ certificate.course.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,11 @@
+<h1>Certificate Details</h1>
+<p><strong>Certificate Number:</strong> {{ certificate.certificate_number }}</p>
+<p><strong>Student:</strong> {{ certificate.student.username }}</p>
+<p><strong>Course:</strong> {{ certificate.course.title }}</p>
+<p><strong>Issued At:</strong> {{ certificate.issued_at }}</p>
+
+{% if certificate.certificate_file %}
+    <p><a href="{% url 'certificates:download_certificate' certificate.pk %}">Download Certificate</a></p>
+{% else %}
+    <p>No certificate file available.</p>
+{% endif %}

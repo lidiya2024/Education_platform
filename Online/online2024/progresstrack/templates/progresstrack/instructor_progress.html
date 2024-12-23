@@ -1,0 +1,19 @@
+<h1>Students' Progress in Your Courses (Instructor View)</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Progress</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cp in course_progress %}
+            <tr>
+                <td>{{ cp.student.username }}</td>
+                <td>{{ cp.course.title }}</td>
+                <td>{{ cp.progress_percentage }}%</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

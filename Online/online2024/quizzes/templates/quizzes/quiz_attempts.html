@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Attempts</title>
+</head>
+<body>
+    <h1>Quiz Attempts</h1>
+    {% if attempts %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Quiz Name</th>
+                    <th>Score</th>
+                    <th>Attempted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attempt in attempts %}
+                    <tr>
+                        <td>{{ attempt.student.username }}</td>
+                        <td>{{ attempt.quiz.title }}</td>
+                        <td>{{ attempt.score }}</td>
+                        <td>{{ attempt.attempted_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No quiz attempts found.</p>
+    {% endif %}
+</body>
+</html>

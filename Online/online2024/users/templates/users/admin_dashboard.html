@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .dashboard-header {
+            background: linear-gradient(90deg, #007bff, #6610f2);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .dashboard-header h1 {
+            margin: 0;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #343a40;
+            color: white;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Statistics Section -->
+        <div class="row text-center mb-4">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Total Users</h3>
+                    <p class="display-6">{{ total_users }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Total Courses</h3>
+                    <p class="display-6">{{ total_courses }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Total Quizzes</h3>
+                    <p class="display-6">{{ total_quizzes }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Enrollments -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>Recent Enrollments</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_enrollments %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Date Enrolled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in recent_enrollments %}
+                            <tr>
+                                <td>{{ enrollment.student.username }}</td>
+                                <td>{{ enrollment.course.title }}</td>
+                                <td>{{ enrollment.enrolled_at|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No recent enrollments.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recent Quiz Attempts -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5>Recent Quiz Attempts</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_quiz_attempts %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Student</th>
+                                <th>Quiz</th>
+                                <th>Score</th>
+                                <th>Date Attempted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attempt in recent_quiz_attempts %}
+                            <tr>
+                                <td>{{ attempt.student.username }}</td>
+                                <td>{{ attempt.quiz.title }}</td>
+                                <td>{{ attempt.score }}</td>
+                                <td>{{ attempt.attempted_at|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No recent quiz attempts.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stats div {
+            width: 30%;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .courses, .quizzes {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user.username }}</h1>
+
+        <!-- Overall Progress -->
+        <div class="stats">
+            <div>
+                <h3>Total Courses Enrolled</h3>
+                <p>{{ progress.total_courses }}</p>
+            </div>
+            <div>
+                <h3>Completed Courses</h3>
+                <p>{{ progress.completed_courses }}</p>
+            </div>
+            <div>
+                <h3>Overall Progress</h3>
+                <p>{{ progress.overall_percentage }}%</p>
+            </div>
+        </div>
+
+        <!-- Enrolled Courses -->
+        <div class="courses">
+            <h2>Your Enrolled Courses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course Title</th>
+                        <th>Progress</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course_progress in enrolled_courses %}
+                    <tr>
+                        <td>{{ course_progress.course.title }}</td>
+                        <td>{{ course_progress.progress_percentage }}%</td>
+                        <td>
+                            <a href="{% url 'courses:course_detail' course_progress.course.id %}">View Course</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">You are not enrolled in any courses yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quiz Progress -->
+        <div class="quizzes">
+            <h2>Your Quiz Progress</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Quiz Title</th>
+                        <th>Score</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for quiz_progress in quiz_progress_list %}
+                    <tr>
+                        <td>{{ quiz_progress.quiz.title }}</td>
+                        <td>{{ quiz_progress.score|default:"Not Attempted" }}</td>
+                        <td>{{ quiz_progress.is_completed|yesno:"Yes,No" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">You have not attempted any quizzes yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
